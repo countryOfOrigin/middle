@@ -30,5 +30,23 @@ router.get('/', function(req, res, next) {
 //         }
 //     });
 // }); 
-
+router.get('/insert_user', function(req, res, next) {
+    var name=req.query.name;
+    var tel=req.query.tel;
+    var psw=req.query.psw;
+    request.post({url:'http://127.0.0.1/afterEnd/user/insert_user', form: {name:name,tel:tel,psw:psw}}, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.json(body);
+        }
+    });
+}); 
+router.get('/login_user', function(req, res, next) {
+    var tel=req.query.tel;
+    var psw=req.query.psw;
+    request.get('http://127.0.0.1/backstage/user/login_user?tel='+tel+"&psw="+psw, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+        }
+    });
+});
 module.exports = router;
