@@ -70,4 +70,15 @@ router.get('/goods_paging', function(req, res, next) {
         }
     });
 });
+
+router.get('/get_user',function(req,res,next){
+    var uid=req.query.userid;
+    console.log(uid);
+    request.get('http://127.0.0.1/afterEnd/user/get_user?uid='+uid, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
+            res.json(body);
+        }
+    });
+});
 module.exports = router;
