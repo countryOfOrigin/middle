@@ -45,7 +45,27 @@ router.get('/login_user', function(req, res, next) {
     var psw=req.query.psw;
     request.post({url:'http://127.0.0.1/afterEnd/user/login_user', form: {tel:tel,psw:psw}}, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log(body);
+            // console.log(body);
+            res.json(body);
+        }
+    });
+});
+router.get('/com_home', function(req, res, next) {
+    request.get('http://127.0.0.1/afterEnd/goods/get_goods', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
+            res.json(body);
+        }
+    });
+});
+router.get('/goods_paging', function(req, res, next) {
+    var cls=req.query.cls;
+    var count=req.query.count;
+    var page=req.query.page;
+    console.log(cls);
+    request.post({url:'http://127.0.0.1/afterEnd/goods/paging', form: {cls:cls,count:count,page:page}}, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
             res.json(body);
         }
     });
