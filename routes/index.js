@@ -34,8 +34,10 @@ router.get('/insert_user', function(req, res, next) {
     var name=req.query.name;
     var tel=req.query.tel;
     var psw=req.query.psw;
+    console.log(name);
     request.post({url:'http://127.0.0.1/afterEnd/user/insert_user', form: {name:name,tel:tel,psw:psw}}, function (error, response, body) {
         if (!error && response.statusCode == 200) {
+            console.log(body);
             res.json(body);
         }
     });
@@ -77,6 +79,30 @@ router.get('/get_user',function(req,res,next){
     request.get('http://127.0.0.1/afterEnd/user/get_user?uid='+uid, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             // console.log(body);
+            res.json(body);
+        }
+    });
+});
+
+router.get('/info',function(req,res,next){
+    var gid=req.query.shop_id;
+    console.log(gid);
+    request.get('http://127.0.0.1/afterEnd/goods/info?gid='+gid, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+            res.json(body);
+        }
+    });
+});
+
+router.get('/insert_cart',function(req,res,next){
+    var uid=req.query.u_id
+    var gid=req.query.shop_id;
+    var count=req.query.count;
+    console.log(count);
+    request.get('http://127.0.0.1/afterEnd/cart/insert_cart?uid='+uid+"&gid="+gid+"&count="+count, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
             res.json(body);
         }
     });
