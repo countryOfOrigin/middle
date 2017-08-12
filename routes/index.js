@@ -72,10 +72,10 @@ router.get('/goods_paging', function(req, res, next) {
         }
     });
 });
-
+//获取用户信息
 router.get('/get_user',function(req,res,next){
     var uid=req.query.userid;
-    console.log(uid);
+    // console.log(uid);
     request.get('http://127.0.0.1/afterEnd/user/get_user?uid='+uid, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             // console.log(body);
@@ -103,6 +103,30 @@ router.get('/insert_cart',function(req,res,next){
     request.get('http://127.0.0.1/afterEnd/cart/insert_cart?uid='+uid+"&gid="+gid+"&count="+count, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body);
+            res.json(body);
+        }
+    });
+});
+//
+
+// 获取和用户有关的所有商品信息
+router.get('/get_orders',function(req,res,next){
+    var uid=req.query.userid;
+    var state=req.query.state;
+    // request.get('http://127.0.0.1/afterEnd/orders/get_orders?uid='+uid+'&state='+state,function(error, response, body){
+    request.post({url:'http://127.0.0.1/afterEnd/orders/get_orders', form: {uid:uid,state:state}}, function(error, response, body){
+        if (!error && response.statusCode == 200) {
+            res.json(body);
+        }    
+    });
+});
+//收藏页
+router.get('/get_collect',function(req,res,next){
+    var uid=req.query.user_id;
+    console.log(uid);
+    request.get('http://127.0.0.1/afterEnd/goods/collection?uid='+uid,function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
             res.json(body);
         }
     });
