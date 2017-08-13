@@ -131,4 +131,16 @@ router.get('/get_collect',function(req,res,next){
         }
     });
 });
+//购物车
+router.get('/cart_all',function(req,res,next){
+    var uid=req.query.u_id;
+    // console.log(uid);
+    request.get('http://127.0.0.1/afterEnd/cart/get_cart?uid='+uid,function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+            res.json(body);
+        }
+    });
+});
+
 module.exports = router;
