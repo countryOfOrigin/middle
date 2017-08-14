@@ -102,7 +102,7 @@ router.get('/insert_cart',function(req,res,next){
     console.log(count);
     request.get('http://127.0.0.1/afterEnd/cart/insert_cart?uid='+uid+"&gid="+gid+"&count="+count, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log(body);
+            // console.log(body);
             res.json(body);
         }
     });
@@ -137,9 +137,32 @@ router.get('/get_address',function(req,res,next){
     var uid=req.query.userid;
     request.get('http://127.0.0.1/afterEnd/user/get_address?uid='+uid,function (error, response, body){
         if (!error && response.statusCode == 200) {
+            // console.log(body);
+            res.json(body);
+        }
+    });
+})
+//给地址id获取地址
+router.get('/get_single_address',function(req,res,next){
+    var aid=req.query.address_id;
+    console.log(aid);
+    request.get('http://127.0.0.1/afterEnd/user/get_address_by_aid?aid='+aid,function (error, response, body){
+        if (!error && response.statusCode == 200) {
+            res.json(body);
+            console.log(body);
+        }
+    });
+})
+
+//删除地址
+router.get('/delete_address',function(req,res,next){
+    var aid=req.query.address_id;
+    request.get('http://127.0.0.1/afterEnd/user/delete_address?aid='+aid,function (error, response, body){
+        if (!error && response.statusCode == 200) {
             console.log(body);
             res.json(body);
         }
     });
 })
+
 module.exports = router;
