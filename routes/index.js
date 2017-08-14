@@ -109,7 +109,7 @@ router.get('/insert_cart',function(req,res,next){
 });
 //
 
-// 获取和用户有关的所有商品信息
+// 获取和用户有关的所有订单信息
 router.get('/get_orders',function(req,res,next){
     var uid=req.query.userid;
     var state=req.query.state;
@@ -131,16 +131,15 @@ router.get('/get_collect',function(req,res,next){
         }
     });
 });
-//购物车
-router.get('/cart_all',function(req,res,next){
-    var uid=req.query.u_id;
-    // console.log(uid);
-    request.get('http://127.0.0.1/afterEnd/cart/get_cart?uid='+uid,function (error, response, body) {
+
+//获取用户的地址信息
+router.get('/get_address',function(req,res,next){
+    var uid=req.query.userid;
+    request.get('http://127.0.0.1/afterEnd/user/get_address?uid='+uid,function (error, response, body){
         if (!error && response.statusCode == 200) {
             console.log(body);
             res.json(body);
         }
     });
-});
-
+})
 module.exports = router;
