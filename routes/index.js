@@ -192,4 +192,37 @@ router.get('/delete_address',function(req,res,next){
 
 })
 
+//购物车
+router.get('/cart_all',function(req,res,next){
+    var uid=req.query.u_id;
+    request.get('http://127.0.0.1/afterEnd/cart/get_cart?uid='+uid,function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
+            res.json(body);
+        }
+    });
+});
+//修改购物车数目
+router.get('/update_cart',function(req,res,next){
+    var sid=req.query.s_id;
+    var count=req.query.count;
+    request.get('http://127.0.0.1/afterEnd/cart/update_cart?sid='+sid+"&count="+count,function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
+            res.json(body);
+        }
+    });
+});
+//从购物车里移除
+router.get('/cart_del',function(req,res,next){
+    var uid=req.query.u_id;
+    var sid=req.query.s_id;
+    request.get('http://127.0.0.1/afterEnd/cart/delete_cart?sid='+sid+"&uid="+uid,function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+            res.json(body);
+        }
+    });
+});
+
 module.exports = router;
