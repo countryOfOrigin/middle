@@ -137,7 +137,6 @@ router.get('/get_address',function(req,res,next){
     var uid=req.query.userid;
     request.get('http://127.0.0.1/afterEnd/user/get_address?uid='+uid,function (error, response, body){
         if (!error && response.statusCode == 200) {
-            // console.log(body);
             res.json(body);
         }
     });
@@ -149,7 +148,6 @@ router.get('/get_single_address',function(req,res,next){
     request.get('http://127.0.0.1/afterEnd/user/get_address_by_aid?aid='+aid,function (error, response, body){
         if (!error && response.statusCode == 200) {
             res.json(body);
-            // console.log(body);
         }
     });
 })
@@ -163,28 +161,37 @@ router.get('/save_address',function(req,res,next){
     var city=req.query.city;
     var dis=req.query.dis;
     var detail=req.query.detail;
-    console.log(aid);
-    console.log(name);
-    console.log(tel);
-    console.log(pro);
-    console.log(city);
-    console.log(dis);
-    console.log(detail);
     request.post({url:'http://127.0.0.1/afterEnd/user/update_address', form: {aid:aid,name:name,tel:tel,pro:pro,city:city,dis:dis,detail:detail}}, function(error, response, body){
         if (!error && response.statusCode == 200) {
             res.json(body);
-            console.log(body);
         }
     });
 
 
 })
+//插入新地址
+router.get('/insert_address',function(req,res,next){
+    var uid=req.query.user_id;
+    var name=req.query.name;
+    var tel=req.query.tel;
+    var pro=req.query.pro;
+    var city=req.query.city;
+    var dis=req.query.dis;
+    var detail=req.query.detail;
+    console.log(detail);
+    request.post({url:'http://127.0.0.1/afterEnd/user/insert_address', form: {uid:uid,name:name,tel:tel,pro:pro,city:city,dis:dis,detail:detail}}, function(error, response, body){
+        if (!error && response.statusCode == 200) {
+            res.json(body);
+            console.log(body);
+        }
+    });
+})
+
 //删除地址
 router.get('/delete_address',function(req,res,next){
     var aid=req.query.address_id;
     request.get('http://127.0.0.1/afterEnd/user/delete_address?aid='+aid,function (error, response, body){
         if (!error && response.statusCode == 200) {
-            console.log(body);
             res.json(body);
         }
     });
