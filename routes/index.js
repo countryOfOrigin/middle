@@ -30,6 +30,7 @@ router.get('/', function(req, res, next) {
 //         }
 //     });
 // }); 
+// 注册
 router.get('/insert_user', function(req, res, next) {
     var name=req.query.name;
     var tel=req.query.tel;
@@ -42,6 +43,7 @@ router.get('/insert_user', function(req, res, next) {
         }
     });
 }); 
+//登录
 router.get('/login_user', function(req, res, next) {
     var tel=req.query.tel;
     var psw=req.query.psw;
@@ -52,6 +54,7 @@ router.get('/login_user', function(req, res, next) {
         }
     });
 });
+//首页所有商品
 router.get('/com_home', function(req, res, next) {
     request.get('http://127.0.0.1/afterEnd/goods/get_goods', function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -224,7 +227,15 @@ router.get('/update_cart',function(req,res,next){
 //从购物车里移除
 router.get('/cart_del',function(req,res,next){
     var uid=req.query.u_id;
-    var sid=req.query.s_id;
+    var w_sid=req.query.s_id;
+    var sid;
+    // console.log(typeof(w_sid));
+    if(typeof(w_sid)=="string"){
+        sid = [w_sid];
+    }else{
+        sid = w_sid;
+    }
+    console.log(sid);
     request.get('http://127.0.0.1/afterEnd/cart/delete_cart?sid='+sid+"&uid="+uid,function (error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body);
