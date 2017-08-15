@@ -236,7 +236,7 @@ router.get('/cart_del',function(req,res,next){
         sid = w_sid;
     }
     console.log(sid);
-    request.get('http://127.0.0.1/afterEnd/cart/delete_cart?sid='+sid+"&uid="+uid,function (error, response, body) {
+    request.get('http://127.0.0.1/afterEnd/cart/delete_cart?sid='+sid+"&uid="+uid,{qs:{uid:uid,sid:sid}},function (error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body);
             res.json(body);
