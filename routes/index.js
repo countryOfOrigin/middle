@@ -63,6 +63,15 @@ router.get('/com_home', function(req, res, next) {
         }
     });
 });
+//热卖商品
+router.get('/hot_goods', function(req, res, next) {
+    request.get('http://127.0.0.1/afterEnd/goods/hot_goods', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
+            res.json(body);
+        }
+    });
+});
 router.get('/goods_paging', function(req, res, next) {
     var cls=req.query.cls;
     var count=req.query.count;
@@ -243,5 +252,24 @@ router.get('/cart_del',function(req,res,next){
         }
     });
 });
-
+//热门搜索
+router.get('/hot_search', function(req, res, next) {
+    request.get('http://127.0.0.1/afterEnd/search/hot_search', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
+            res.json(body);
+        }
+    });
+});
+//搜索结果
+router.get('/search_key', function(req, res, next) {
+    var key=req.query.key;
+    console.log(key);
+    request.post({url:'http://127.0.0.1/afterEnd/search/fuzzy_search', form:{ipt:key}},  function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+            res.json(body);
+        }
+    });
+});
 module.exports = router;
