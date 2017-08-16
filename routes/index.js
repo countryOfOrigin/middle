@@ -272,4 +272,24 @@ router.get('/search_key', function(req, res, next) {
         }
     });
 });
+//全部购物券
+router.get('/get_money', function(req, res, next) {
+    request.get('http://127.0.0.1/afterEnd/coupon/get_coupon', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
+            res.json(body);
+        }
+    });
+});
+//获取代金券
+router.get('/add_money',function(req,res,next){
+    var uid=req.query.uid;
+    var cid=req.query.cid;
+    request.get('http://127.0.0.1/afterEnd/coupon/add_coupon?uid='+uid+"&cid="+cid,function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
+            res.json(body);
+        }
+    });
+});
 module.exports = router;
