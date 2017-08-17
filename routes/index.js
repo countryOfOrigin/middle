@@ -292,4 +292,17 @@ router.get('/add_money',function(req,res,next){
         }
     });
 });
+//查看代金券
+router.get('/get_discount',function(req,res,next){
+    var uid=req.query.uid;
+    request.get('http://127.0.0.1/afterEnd/coupon/get_owncoupon?uid='+uid,function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+            res.json(body);
+        }
+    });
+});
 module.exports = router;
+//superagent 
+//快递api
+//web嵌入QQ
