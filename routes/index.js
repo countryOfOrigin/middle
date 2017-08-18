@@ -211,7 +211,27 @@ router.get('/delete_address',function(req,res,next){
 
 
 })
-
+//商品详情
+router.get('/get_goods',function(req,res,next){
+    var sid=req.query.sid;
+    var count=req.query.count;
+    request.get('http://127.0.0.1/afterEnd/goods/info?gid='+sid,function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
+            res.json(body);
+        }
+    });
+});
+//该商品的评论
+router.get('/get_comment',function(req,res,next){
+    var sid=req.query.sid;
+    request.get('http://127.0.0.1/afterEnd/comment/get_comment?gid='+sid,function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
+            res.json(body);
+        }
+    });
+});
 //购物车
 router.get('/cart_all',function(req,res,next){
     var uid=req.query.u_id;
@@ -298,6 +318,39 @@ router.get('/get_discount',function(req,res,next){
     request.get('http://127.0.0.1/afterEnd/coupon/get_owncoupon?uid='+uid,function (error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body);
+            res.json(body);
+        }
+    });
+});
+//该商品是否被收藏
+router.get('/is_collect',function(req,res,next){
+    var sid=req.query.sid;
+    var uid=req.query.uid;
+    request.get('http://127.0.0.1/afterEnd/comment/check_collection?gid='+sid+"&uid="+uid,function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
+            res.json(body);
+        }
+    });
+});
+//添加收藏
+router.get('/collect_in',function(req,res,next){
+    var sid=req.query.sid;
+    var uid=req.query.uid;
+    request.get('http://127.0.0.1/afterEnd/comment/add_collection?gid='+sid+"&uid="+uid,function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
+            res.json(body);
+        }
+    });
+});
+//取消收藏
+router.get('/collect_out',function(req,res,next){
+    var sid=req.query.sid;
+    var uid=req.query.uid;
+    request.get('http://127.0.0.1/afterEnd/comment/remove_collection?gid='+sid+"&uid="+uid,function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
             res.json(body);
         }
     });
