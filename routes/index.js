@@ -33,6 +33,7 @@ router.get('/', function(req, res, next) {
 // 注册
 router.get('/insert_user', function(req, res, next) {
     var name=req.query.name;
+
     var tel=req.query.tel;
     var psw=req.query.psw;
     console.log(name);
