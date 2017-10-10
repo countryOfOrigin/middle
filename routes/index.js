@@ -31,54 +31,25 @@ router.get('/', function(req, res, next) {
 //     });
 // }); 
 router.get('/insert_user', function(req, res, next) {
-    var name=req.query.name;
     var tel=req.query.tel;
-    var psw=req.query.psw;
-    request.post({url:'http://127.0.0.1/afterEnd/user/insert_user', form: {name:name,tel:tel,psw:psw}}, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
+    var pass=req.query.pass;
+    console.log(tel);
+    console.log(pass);                                         
+    request.get('http://127.0.0.1/News_hou/user/insert_user?tel='+tel+"&pass="+pass ,function (error, response, body) {
+        // if (!error && response.statusCode == 200) {
+        //     console.log(body);
+        //     res.json(body);
+        // }
+        if(error){
+            console.log(error);
+
+        }else{
+            console.log(body);
             res.json(body);
         }
+        
     });
 }); 
-router.get('/login_user', function(req, res, next) {
-    var tel=req.query.tel;
-    var psw=req.query.psw;
-    request.post({url:'http://127.0.0.1/afterEnd/user/login_user', form: {tel:tel,psw:psw}}, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            // console.log(body);
-            res.json(body);
-        }
-    });
-});
-router.get('/com_home', function(req, res, next) {
-    request.get('http://127.0.0.1/afterEnd/goods/get_goods', function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            // console.log(body);
-            res.json(body);
-        }
-    });
-});
-router.get('/goods_paging', function(req, res, next) {
-    var cls=req.query.cls;
-    var count=req.query.count;
-    var page=req.query.page;
-    console.log(cls);
-    request.post({url:'http://127.0.0.1/afterEnd/goods/paging', form: {cls:cls,count:count,page:page}}, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            // console.log(body);
-            res.json(body);
-        }
-    });
-});
 
-router.get('/get_user',function(req,res,next){
-    var uid=req.query.userid;
-    console.log(uid);
-    request.get('http://127.0.0.1/afterEnd/user/get_user?uid='+uid, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            // console.log(body);
-            res.json(body);
-        }
-    });
-});
 module.exports = router;
+
